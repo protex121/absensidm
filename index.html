@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Absensi - DM</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!--Sweetalert2-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-auth.js"></script>
+
+    <style media="screen">
+      .nama {
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
+  </head>
+  <body>
+    <!--navbar-->
+    <nav class="navbar navbar-light bg-light border-top navbar-expand d-md-none d-lg-none d-xl-none fixed-bottom" style="font-size: 0.8em;">
+            <ul class="navbar-nav nav-justified w-100">
+                <li class="nav-item member">
+                    <a href="#" class="nav-link" style="padding-bottom:0px;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                        <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                      </svg>
+                    </a>
+                    Member
+                </li>
+                <!-- <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </a>
+                </li> -->
+                <li class="nav-item">
+                    <a href="#" class="nav-link" style="padding-bottom:0px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                    </a>
+                    Event
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" style="padding-bottom:0px;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
+                        <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
+                      </svg>
+                    </a>
+                    Absensi
+                </li>
+                <!-- <li class="nav-item">
+                    <a href="#" class="nav-link" style="padding-bottom:0px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                        </svg>
+                    </a>
+                </li> -->
+            </ul>
+    </nav>
+    <!-- Content -->
+    <div class="container">
+        <div class="row">
+
+            <div class="clearfix py-4">
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary btn-sm btn-tambah">Tambah Anggota Baru</button>
+              </div>
+              <hr>
+              <div class="content justify-content-center">
+
+              </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+  </body>
+
+  <script type="text/javascript">
+    $(document).ready(async ()=>{
+      Swal.fire({
+          title: 'Loading',
+          text: 'Please Wait',
+          showCancelButton: false,
+          showConfirmButton: false
+      });
+
+      let db = firebase.database().ref(`volunteer`);
+
+      await db.get().then(function(snapshot){
+        let data = snapshot.val();
+        for (var key in data) {
+          drawMember(data[key]);
+        }
+        $( ".content" ).append("<br><hr>");
+
+      }).then(()=>{
+        Swal.close();
+      });
+
+    });
+</script>
+
+  <script type="text/javascript">
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDmdLIwAEDfkhaQoWTLDvC9A5DdCbtZvB0",
+      authDomain: "absensidm.firebaseapp.com",
+      projectId: "absensidm",
+      storageBucket: "absensidm.appspot.com",
+      messagingSenderId: "469832456744",
+      appId: "1:469832456744:web:01efe7e29267cb2122f31d",
+      databaseURL: "https://absensidm-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+  <script type="text/javascript">
+    $(".member").click(function(){
+
+    })
+
+    $(".btn-tambah").click(async function(){
+
+      let nama = await Swal.fire({
+        title: 'Enter Name',
+        input: 'text',
+        showCancelButton: true,
+        inputValidator: (value) => {
+          if (!value) {
+            return 'Nama tidak boleh kosong!'
+          }
+        }
+      });
+
+      let tim = firebase.database().ref(`team`);
+      await tim.get().then(async function(snapshot){
+
+        let {value:id_tim} = await Swal.fire({
+          title: 'Pilih Tim',
+          input: 'select',
+          inputOptions: {
+            'ux9RHGijMW': 'Tim 1',
+            'R7noy9Yl5v': 'Tim 2',
+            'rSbzCSk30O': 'Tim 3',
+          },
+          showCancelButton: true,
+        });
+
+
+        // push the data
+        let lastid = await firebase.database().ref('volunteer').push({
+          name: nama.value.toUpperCase(),
+          team : id_tim,
+          role: 0
+        });
+
+        await firebase.database().ref('team').child(id_tim).child('volunteer').push(lastid.getKey());
+
+      });
+
+      // let tim = await Swal.fire({
+      //   title: 'Select Team',
+      //   input: 'text',
+      //   showCancelButton: true,
+      //   inputValidator: (value) => {
+      //     if (!value) {
+      //       return 'Nama tidak boleh kosong!'
+      //     }
+      //   }
+      // });
+
+      //console.log(nama.value.toUpperCase())
+
+    });
+
+    function drawMember(data){
+      //$(".content").empty();
+      let role = "";
+      if (data.role == 1){role="SPV";}else{role="Member"}
+      let content = `<div class="card" style="margin-bottom: 5px;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-1">
+
+            </div>
+            <div class="col-9">
+              <h6 class="nama">${data.name}</h6>
+              <span>${role}</span>
+            </div>
+            <div class="col-2" style="display: block;margin: auto;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+      $( ".content" ).append(content);
+    }
+
+  </script>
+
+</html>
