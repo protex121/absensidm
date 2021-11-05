@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Absensi - DM</title>
+    <title>Member - DM</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -50,7 +50,7 @@
                         </svg>
                     </a>
                 </li> -->
-                <li class="nav-item">
+                <li class="nav-item event">
                     <a href="#" class="nav-link" style="padding-bottom:0px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
@@ -59,7 +59,7 @@
                     </a>
                     Event
                 </li>
-                <li class="nav-item">
+                <li class="nav-item absensi">
                     <a href="#" class="nav-link" style="padding-bottom:0px;">
                       <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-file-earmark-fill" viewBox="0 0 16 16">
                         <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z"/>
@@ -99,30 +99,31 @@
 
   </body>
 
+
   <script type="text/javascript">
-    $(document).ready(async ()=>{
-      Swal.fire({
-          title: 'Loading',
-          text: 'Please Wait',
-          showCancelButton: false,
-          showConfirmButton: false
+      $(document).ready(async ()=>{
+        Swal.fire({
+            title: 'Loading',
+            text: 'Please Wait',
+            showCancelButton: false,
+            showConfirmButton: false
+        });
+
+        let db = firebase.database().ref(`volunteer`);
+
+        await db.get().then(function(snapshot){
+          let data = snapshot.val();
+          for (var key in data) {
+            drawMember(data[key]);
+          }
+          $( ".content" ).append("<br><hr>");
+
+        }).then(()=>{
+          Swal.close();
+        });
+
       });
-
-      let db = firebase.database().ref(`volunteer`);
-
-      await db.get().then(function(snapshot){
-        let data = snapshot.val();
-        for (var key in data) {
-          drawMember(data[key]);
-        }
-        $( ".content" ).append("<br><hr>");
-
-      }).then(()=>{
-        Swal.close();
-      });
-
-    });
-</script>
+  </script>
 
   <script type="text/javascript">
     // Your web app's Firebase configuration
@@ -142,7 +143,15 @@
 
   <script type="text/javascript">
     $(".member").click(function(){
+      window.location.href = "index.html";
+    });
 
+    $(".event").click(function(){
+      window.location.href = "event.html";
+    });
+
+    $(".absensi").click(function(){
+      window.location.href = "absensi.html";
     })
 
     $(".btn-tambah").click(async function(){
