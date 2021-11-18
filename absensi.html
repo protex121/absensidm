@@ -211,9 +211,11 @@
                   if(volunteer_attendance.length == 0){
                     $(".list-volunteer").empty();
                   }
-                  $(".list-volunteer").append(`<li class="list-group-item joined-volunteer" value="${value}">${label}</li>`);
-                  $("#input").val(""); //clear input
-                  volunteer_attendance.push({"uid":value})
+                  if(value != null || label != null){
+                    $(".list-volunteer").append(`<li class="list-group-item joined-volunteer" value="${value}">${label}</li>`);
+                    $("#input").val(""); //clear input
+                    volunteer_attendance.push({"uid":value})
+                  }
               }
           });
 
